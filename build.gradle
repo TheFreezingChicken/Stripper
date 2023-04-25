@@ -1,11 +1,4 @@
 buildscript {
-    def preCommitHookPath = ".git/hooks/pre-commit"
-
-    // Check for pre-commit hook.
-    if (!rootProject.file(preCommitHookPath).exists()) {
-        throw new GradleException("Pre-commit hook is missing. Please make sure that ${preCommitHookPath} exists.")
-    }
-
     ext {
         GROUP_ID = "me.thefreezingchicken.stripper"
         ARTIFACT_ID_ROOT = "stripper"
