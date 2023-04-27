@@ -9,8 +9,8 @@ ext {
     ARTIFACT_ID_SUFFIX = 'core'
     VERSION = '0.2.0'
     // Swap comment state of these two lines for releases.
-    //PRE_RELEASE_VERSION_SUFFIX = ""
-    PRE_RELEASE_VERSION_SUFFIX = buildSnapshotSuffix()
+    PRE_RELEASE_VERSION_SUFFIX = ""
+    //PRE_RELEASE_VERSION_SUFFIX = buildSnapshotSuffix()
 
     // Bump the minor version after a new release branch. Bump major version when starting to work on major changes.
     // In version codes, the two Tag (T) digits are used for special use cases (e.g. releasing a fix to a specific user,
