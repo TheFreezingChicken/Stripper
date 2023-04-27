@@ -7,10 +7,10 @@ plugins {
 
 ext {
     ARTIFACT_ID_SUFFIX = 'core'
-    VERSION = '0.1.0'
+    VERSION = '0.2.0'
     // Swap comment state of these two lines for releases.
-    PRE_RELEASE_VERSION_SUFFIX = ""
-    //PRE_RELEASE_VERSION_SUFFIX = buildSnapshotSuffix()
+    //PRE_RELEASE_VERSION_SUFFIX = ""
+    PRE_RELEASE_VERSION_SUFFIX = buildSnapshotSuffix()
 
     // Bump the minor version after a new release branch. Bump major version when starting to work on major changes.
     // In version codes, the two Tag (T) digits are used for special use cases (e.g. releasing a fix to a specific user,
@@ -19,7 +19,7 @@ ext {
     // Version codes: T = Tag, p = Patch, m = minor, M = Major
     //                         M m p T
     //                Max = 2100000000
-    ANDROID_VERSION_CODE =       10000
+    ANDROID_VERSION_CODE =       20000
 }
 
 
@@ -51,10 +51,8 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

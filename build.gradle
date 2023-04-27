@@ -3,7 +3,8 @@ buildscript {
         GROUP_ID = "me.thefreezingchicken.stripper"
         ARTIFACT_ID_ROOT = "stripper"
 
-        KOTLIN_VERSION = "1.7.20"
+        KOTLIN_COMPILER_VERSION = "1.8.10"
+        COMPOSE_COMPILER_VERSION = "1.4.4"
 
         buildSnapshotSuffix = {
             def headCommitHashSuffix = ""
@@ -23,5 +24,5 @@ buildscript {
 plugins {
     id 'com.android.application' version '8.0.0' apply false
     id 'com.android.library' version '8.0.0' apply false
-    id 'org.jetbrains.kotlin.android' version "$KOTLIN_VERSION" apply false
+    id 'org.jetbrains.kotlin.android' version "$KOTLIN_COMPILER_VERSION" apply false
 }
