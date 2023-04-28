@@ -1,12 +1,16 @@
 buildscript {
     ext {
         GROUP_ID = "me.thefreezingchicken.stripper"
-        ARTIFACT_ID_ROOT = "stripper"
+        ARTIFACT_ID_PROJECT = "stripper"
 
         KOTLIN_COMPILER_VERSION = "1.8.10"
         COMPOSE_COMPILER_VERSION = "1.4.4"
 
+        isSnapshotCommit = true
+
         buildSnapshotSuffix = {
+            if (!isSnapshotCommit) return ""
+
             def headCommitHashSuffix = ""
             def workingTreeStatus = "git status --porcelain".execute([], project.rootDir).text.trim()
             def workingTreeClean = workingTreeStatus.isEmpty()

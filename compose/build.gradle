@@ -6,20 +6,11 @@ plugins {
 
 
 ext {
-    ARTIFACT_ID_SUFFIX = 'compose'
-    VERSION = '0.2.0'
+    ARTIFACT_ID_MODULE = 'compose'
+    VERSION = '0.3.0'
     // Swap comment state of these two lines for releases.
-    PRE_RELEASE_VERSION_SUFFIX = ""
-    //PRE_RELEASE_VERSION_SUFFIX = buildSnapshotSuffix()
-
-    // Bump the minor version after a new release branch. Bump major version when starting to work on major changes.
-    // In version codes, the two Tag (T) digits are used for special use cases (e.g. releasing a fix to a specific user,
-    // creating a new release variant, etc...), so for now they will stay to 00.
-    //
-    // Version codes: T = Tag, p = Patch, m = minor, M = Major
-    //                         M m p T
-    //                Max = 2100000000
-    ANDROID_VERSION_CODE =       20000
+    //PRE_RELEASE_VERSION_SUFFIX = ""
+    PRE_RELEASE_VERSION_SUFFIX = buildSnapshotSuffix()
 }
 
 
@@ -58,6 +49,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    publishing {
+        singleVariant('release')
+    }
 }
 
 dependencies {
@@ -80,7 +75,7 @@ publishing {
     publications {
         release(MavenPublication) {
             groupId = GROUP_ID
-            artifactId = "$ARTIFACT_ID_ROOT-$ARTIFACT_ID_SUFFIX"
+            artifactId = "$ARTIFACT_ID_PROJECT-$ARTIFACT_ID_MODULE"
             version = (VERSION + PRE_RELEASE_VERSION_SUFFIX)
 
             afterEvaluate {
