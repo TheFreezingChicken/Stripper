@@ -8,9 +8,8 @@ plugins {
 ext {
     ARTIFACT_ID_MODULE = 'compose'
     VERSION = '0.3.0'
-    // Swap comment state of these two lines for releases.
-    //PRE_RELEASE_VERSION_SUFFIX = ""
-    PRE_RELEASE_VERSION_SUFFIX = buildSnapshotSuffix()
+    def isSnapshot = true
+    PRE_RELEASE_VERSION_SUFFIX = buildSuffix(isSnapshot, "")
 }
 
 
@@ -21,6 +20,10 @@ android {
     defaultConfig {
         minSdk 23
         targetSdk 33
+
+
+        versionName VERSION
+        versionNameSuffix PRE_RELEASE_VERSION_SUFFIX
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"

@@ -6,10 +6,8 @@ buildscript {
         KOTLIN_COMPILER_VERSION = "1.8.10"
         COMPOSE_COMPILER_VERSION = "1.4.4"
 
-        isSnapshotCommit = true
-
-        buildSnapshotSuffix = {
-            if (!isSnapshotCommit) return ""
+        buildSuffix = { boolean isSnapshot, String replacementSuffix ->
+            if (!isSnapshot) return replacementSuffix
 
             def headCommitHashSuffix = ""
             def workingTreeStatus = "git status --porcelain".execute([], project.rootDir).text.trim()

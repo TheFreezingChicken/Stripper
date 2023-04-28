@@ -15,6 +15,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Stripper"
-include ':demo'
 include ':core'
 include ':compose'
