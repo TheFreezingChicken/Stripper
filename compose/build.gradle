@@ -7,7 +7,7 @@ plugins {
 
 ext {
     ARTIFACT_ID_MODULE = 'compose'
-    VERSION = '1.0.0'
+    VERSION = '1.0.1'
     def isSnapshot = false
     PRE_RELEASE_VERSION_SUFFIX = buildSuffix(isSnapshot, "")
 }
@@ -54,7 +54,10 @@ android {
     }
 
     publishing {
-        singleVariant('release')
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 
@@ -75,6 +78,45 @@ publishing {
             groupId = GROUP_ID
             artifactId = "$ARTIFACT_ID_PROJECT-$ARTIFACT_ID_MODULE"
             version = (VERSION + PRE_RELEASE_VERSION_SUFFIX)
+
+
+            pom {
+                name = 'Stripper for Compose'
+                description = 'Android library to add Composable code blocks for debug, that are removed by ProGuard on release.'
+                url = 'https://github.com/TheFreezingChicken/Stripper'
+                licenses {
+                    license {
+                        name = 'The MIT License'
+                        url = 'https://thefreezingchicken.mit-license.org/'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'TheFreezingChicken'
+                        name = 'The Freezing Chicken'
+                        email = 'thefreezingchicken+github@gmail.com'
+                        url = 'http://thefreezingchicken.me/'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/TheFreezingChicken/Stripper.git'
+                    developerConnection = 'scm:git:https://github.com/TheFreezingChicken/Stripper.git'
+                    url = 'https://github.com/TheFreezingChicken/Stripper'
+                }
+            }
+
+
+            repositories {
+                maven {
+                    name = "OSSRH"
+                    setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                    credentials {
+                        username = keystoreProperties.mavenUsername
+                        password = keystoreProperties.mavenPassword
+                    }
+                }
+            }
+
 
             afterEvaluate {
                 from components.release
