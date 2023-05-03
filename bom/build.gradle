@@ -1,0 +1,77 @@
+plugins {
+    id 'java-platform'
+    id 'maven-publish'
+    id 'signing'
+}
+
+
+ext {
+    ARTIFACT_ID_MODULE = 'bom'
+    VERSION = '2023.05.03'
+    def isSnapshot = false
+    PRE_RELEASE_VERSION_SUFFIX = buildSuffix(isSnapshot, "")
+}
+
+
+dependencies {
+    constraints {
+        api("me.thefreezingchicken.stripper:stripper-core:1.0.2")
+        api("me.thefreezingchicken.stripper:stripper-compose:1.0.3")
+    }
+}
+
+
+publishing {
+    publications {
+        bom(MavenPublication) {
+            groupId = GROUP_ID
+            artifactId = "$ARTIFACT_ID_PROJECT-$ARTIFACT_ID_MODULE"
+            version = (VERSION + PRE_RELEASE_VERSION_SUFFIX)
+
+
+            pom {
+                name = 'Stripper BOM'
+                description = 'Bill of Material to keep track of latest releases.'
+                url = 'https://github.com/TheFreezingChicken/Stripper'
+                licenses {
+                    license {
+                        name = 'The MIT License'
+                        url = 'https://thefreezingchicken.mit-license.org/'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'TheFreezingChicken'
+                        name = 'The Freezing Chicken'
+                        email = 'thefreezingchicken+github@gmail.com'
+                        url = 'http://thefreezingchicken.me/'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/TheFreezingChicken/Stripper.git'
+                    developerConnection = 'scm:git:https://github.com/TheFreezingChicken/Stripper.git'
+                    url = 'https://github.com/TheFreezingChicken/Stripper'
+                }
+            }
+
+
+            repositories {
+                maven {
+                    name = "OSSRH"
+                    setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                    credentials {
+                        username = property('mavenUsername')
+                        password = property('mavenPassword')
+                    }
+                }
+            }
+
+            afterEvaluate { from(components["javaPlatform"]) }
+        }
+    }
+}
+
+signing {
+    useGpgCmd()
+    sign publishing.publications.bom
+}

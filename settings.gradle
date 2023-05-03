@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 rootProject.name = "Stripper"
 include ':core'
 include ':compose'
+include ':bom'
