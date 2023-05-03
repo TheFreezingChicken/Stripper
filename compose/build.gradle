@@ -8,7 +8,7 @@ plugins {
 
 ext {
     ARTIFACT_ID_MODULE = 'compose'
-    VERSION = '1.0.2'
+    VERSION = '1.0.3'
     def isSnapshot = false
     PRE_RELEASE_VERSION_SUFFIX = buildSuffix(isSnapshot, "")
 }
@@ -112,8 +112,8 @@ publishing {
                     name = "OSSRH"
                     setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
                     credentials {
-                        username = keystoreProperties.mavenUsername
-                        password = keystoreProperties.mavenPassword
+                        username = property('mavenUsername')
+                        password = property('mavenPassword')
                     }
                 }
             }
