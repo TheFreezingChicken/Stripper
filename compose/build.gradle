@@ -112,8 +112,8 @@ publishing {
                     name = "OSSRH"
                     setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
                     credentials {
-                        username = keystoreProperties.mavenUsername
-                        password = keystoreProperties.mavenPassword
+                        username = property('mavenUsername')
+                        password = property('mavenPassword')
                     }
                 }
             }
