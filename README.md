@@ -3,8 +3,20 @@ This Android library written in Kotlin allows you to easily write debug code blo
 It's just 12 lines of code (with the ProGuard consumer file), so you may even consider just copying and pasting them 🤷‍♂️
 
 ## How to use
-I haven't published it on Maven yet, so for now you'll have to copy the code from [Stripper.kt](https://github.com/TheFreezingChicken/Stripper/blob/core/core/src/main/java/me/thefreezingchicken/stripper/Stripper.kt), [ComposeStripper.kt](https://github.com/TheFreezingChicken/Stripper/blob/core/compose/src/main/java/me/thefreezingchicken/stripper/compose/ComposeStripper.kt), [consumer-rules.pro](https://github.com/TheFreezingChicken/Stripper/blob/core/core/consumer-rules.pro) and [consumer-rules.pro](https://github.com/TheFreezingChicken/Stripper/blob/core/compose/consumer-rules.pro) into your project
+Use the BOM to add the library to your dependencies:
+```
+dependencies {
+    def stripperBom = platform('me.thefreezingchicken.stripper:stripper-bom:2023.05.03')
 
+    implementation stripperBom
+
+    // Add this line if you want to use "_stripper"
+    implementation 'me.thefreezingchicken.stripper:stripper-core'
+
+    // Add this line if you want to use "_ComposableStripper" or "_LaunchedEffectStripper"
+    implementation 'me.thefreezingchicken.stripper:stripper-compose'
+}
+```
 
 For the blocks to be removed you need ProGuard enabled, as described in the ["Enable shrinking, obfuscation, and optimization"](https://developer.android.com/build/shrink-code#enable) section of the official Android documentation (resource shrinking is not necessary). If for some reason your project requires your release builds to have it disabled then this library will be completely useless to you.
 
@@ -24,6 +36,16 @@ _ComposableStripper {
 ```
 
 This is very useful if you want some info to be shown directly on the UI when you're debugging (for example, I have a text in the bottom bar telling me the navigation route).
+
+<br>
+<br>
+
+There's also a set of `_LaunchedEffectStripper` functions, to have a `LaunchedEffect` that gets stripped. It's a shortcut to avoid having to cascade a `_ComposableStripper` and a `LaunchedEffect`.
+```
+_LaunchedEffectStripper(key1 = youKeyObject) {
+  // Debug code
+}
+```
 
 ## Why the underscore naming?
 Having code that gets thrown in or out depending on factors that are outside the runtime scope of your app is very dangerous business, so the least you can do is make that kind of code stand out. I think putting an underscore in front of the function name is enough to make those calls more readable, and won't interfere on naming conventions in a significant way. In addition to that, Android Studio smart completion still picks up the function even if you start typing it without the underscore (I don't know about other IDEs).
